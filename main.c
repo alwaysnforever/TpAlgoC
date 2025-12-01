@@ -126,4 +126,56 @@ if(strcmp(guess, secret) != 0){
 printf("\nOut of the attempts! The word was: %s\n", secret);
 }
 return 0;
+    //Fonction pour calculer le feedback entre deux mots (sans afficher)
+    void ComputeFeedback(const char *guess, const char *secret, char *feedback) {
+    int match[WORD_LENGTH] = {0};
+    int i, j;
+
+    // 1) Marquer les 'G'
+    for (i = 0; i < WORD_LENGTH; i++) {
+        if (guess[i] == secret[i]) {
+            feedback[i] = 'G';
+            match[i] = 1;
+        } else {
+            feedback[i] = 'B';
+        }
+    }
+
+    // 2) Marquer les 'Y'
+    for (i = 0; i < WORD_LENGTH; i++) {
+        if (feedback[i] == 'B') {
+            for (j = 0; j < WORD_LENGTH; j++) {
+                if (!match[j] && guess[i] == secret[j]) {
+                    feedback[i] = 'Y';
+                    match[j] = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    feedback[WORD_LENGTH] = '\0';
+}
+//Tester si un mot candidat est compatible avec le feedback
+    int IsCompatible(const char *candidate, const char *guess, const char *feedback_target) {
+    char feedback_tmp[WORD_LENGTH + 1];
+    ComputeFeedback(guess, candidate, feedback_tmp);
+    // si le feedback généré est le même que celui reçu, le candidate est possible
+    return strcmp(feedback_tmp, feedback_target) == 0;
+}
+//Filtrer la liste des candidats après chaque essai
+    int FilterCandidates(char candidates[][WORD_LENGTH + 1], int count,
+                     const char *guess, const char *feedback_target) {
+    int i, newCount = 0;
+
+    for (i = 0; i < count; i++) {
+        if (IsCompatible(candidates[i], guess, feedback_target)) {
+            // garder ce mot
+            strcpy(candidates[newCount], candidates[i]);
+            newCount++;
+        }
+    }
+    return newCount; // nouveau nombre de candidats
+}
+
 }
