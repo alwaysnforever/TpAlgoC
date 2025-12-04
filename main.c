@@ -126,6 +126,7 @@ if(strcmp(guess, secret) != 0){
 printf("\nOut of the attempts! The word was: %s\n", secret);
 }
 return 0;
+}
     //Fonction pour calculer le feedback entre deux mots (sans afficher)
     void ComputeFeedback(const char *guess, const char *secret, char *feedback) {
     int match[WORD_LENGTH] = {0};
