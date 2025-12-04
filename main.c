@@ -177,5 +177,51 @@ return 0;
     }
     return newCount; // nouveau nombre de candidats
 }
-
+//fonction pour initialiser la liste des candidates a partir du dictionnaire 
+//au debut du solver tout les mots de dictionnaire sont consedire comme possible
+//on copie donc chaque mot du dictionnaire dans le tableau "candidates"
+void InitializeCandidates(char candidates[][WORD_LENGTH + 1], char dictionnary[][WORD_LENGTH + 1], int count);
+//copier chaque mot du dictionnaire dans "candidates"
+for(int i = 0; i < count; i++){
+strcpy(candidates[i], dictionnary[i]);//copie du mot
 }
+}
+//fonction principale du solver : tente de trouver automatiquement le mot secret
+//en utilisant les fonctions de feedback et de filtrage
+void Solver(char dictionary[][WORD_LENGTH + 1], int dictCount, const char *SecretWord){
+    char candidates[MAX_WORDS][WORD_LENTH + 1];
+    int candidateCount = dictCount;
+//initialiser les candidats
+//Au depart, tout les mots du dictionnaire sont possible
+InitializeCandidates(candidates, dictionary, dictCount);
+char guess[WORD_LENGTH + 1];
+char feedback[WORD_LENGTH + 1];
+//premier essai
+//le solver choisit un mot fixe comme premier guess
+strcpy(guess, "arise"); //mot de depart simple
+printf("---------Solver Started----------");
+//boucle des tentatives
+for(int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++){
+//calcule du feedback entre guess et secret
+ComputeFeedback(guess, SecretWord, feedback);
+printf("attempt %d: guess = %s ---> %s\n", attempt, guess, feedback);
+//verifie si le solver a trouve le mot 
+if(strcmp(guess, SecretWord) == 0){
+printf("Solver found the word in %d attempts", attempt);
+return;
+}
+//filtrer les candidates
+//on supprime tout les mots qui ne correspondent pas au feedback
+candidateCount = FilterCandidate(candidates, candidateCount, guess, feedback);
+//si plus acun mot possible -> echec
+if(candidateCount = 0){
+printf("No candidates left! Solver failed.\n);
+    return;
+    }
+    //Noveau guess
+    //le solver choisit simplement le premier mot restant dans les candidats
+    strcpy(guess, candidates[0]);
+}
+//si on sort de la boucle sans trouver le mot
+printf("Solver could not find the word);
+    }
