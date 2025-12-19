@@ -99,7 +99,15 @@ void PlayGame(char dictionary[][WORD_LENGTH + 1], int LoadedWords, char *secret)
         GetUserGuess(guess, dictionary, LoadedWords);
         GiveFeedback(guess, secret, feedback);
 
-        printf("Result: %s (G=green, Y=yellow, B=grey)\n", feedback);
+        or (int i = 0; i < WORD_LENGTH; i++) {
+    if (feedback[i] == 'G')
+        printf(COLOR_GREEN " %c " COLOR_RESET, guess[i]);
+    else if (feedback[i] == 'Y')
+        printf(COLOR_YELLOW " %c " COLOR_RESET, guess[i]);
+    else
+        printf(COLOR_BLACK " %c " COLOR_RESET, guess[i]);
+}
+printf("\n");
 
         if (strcmp(guess, secret) == 0) {
             printf("\nCongratulations! You guessed the word.\n");
