@@ -33,6 +33,9 @@ The program will:
 
 ### Example Usage (Terminal)
 
+<img width="411" height="459" alt="Screenshot 2025-12-19 141322" src="https://github.com/user-attachments/assets/bfc9bba3-2dd3-412d-9f4c-c7672789bdc8" />
+
+<img width="352" height="367" alt="Screenshot 2025-12-19 141402" src="https://github.com/user-attachments/assets/a119be02-43b6-43a7-a503-fbc47252e2c4" />
 
 
 ## Project Files
