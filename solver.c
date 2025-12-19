@@ -151,7 +151,16 @@ void Solver(char dictionary[][WORD_LENGTH + 1], int dictCount, const char *secre
         //compute feedback for (guess vs secret)
         
         ComputeFeedback(guess, secret_word, feedback);
-        printf("Attempt %d: %s -> %s\n", attempt, guess, feedback);
+        printf("Attempt %d: ", attempt);
+for (int i = 0; i < WORD_LENGTH; i++) {
+    if (feedback[i] == 'G')
+        printf(COLOR_GREEN " %c " COLOR_RESET, guess[i]);
+    else if (feedback[i] == 'Y')
+        printf(COLOR_YELLOW " %c " COLOR_RESET, guess[i]);
+    else
+        printf(COLOR_BLACK " %c " COLOR_RESET, guess[i]);
+}
+printf("\n");
 
         //if the solver found the word stop 
         if (strcmp(guess, secret_word) == 0) {
