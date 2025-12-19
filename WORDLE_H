@@ -10,6 +10,11 @@
 #define WORD_LENGTH 5
 #define MAX_ATTEMPTS 6
 
+#define COLOR_GREEN   "\x1b[42;30m"  // green background, black text
+#define COLOR_YELLOW  "\x1b[43;30m"  // yellow background, black text
+#define COLOR_BLACK   "\x1b[40;37m"  // black background, white text
+#define COLOR_RESET   "\x1b[0m"      // reset to default
+
 //-----GAME FUNCTION (PART 1) -----
 int ReadDictionary(char dictionary[][WORD_LENGTH + 1]);
 void ChooseRandomWord(char dictionary[][WORD_LENGTH + 1], int count, char *secret);
